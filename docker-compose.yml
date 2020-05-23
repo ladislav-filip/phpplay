@@ -6,6 +6,9 @@ services:
             context: ./
         ports:
             - 8073:80
+        environment:
+            - SIGN_URL=http://localhost:8074
+            - RETURN_URL=http://localhost:8073/saml.php
 
     phpplayauth:
         build:
