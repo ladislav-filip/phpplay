@@ -1,2 +1,2 @@
 <?php
-echo 'My username is ' .$_ENV["USER"] . '!';
+echo 'Moje promenna: ' .$_ENV["LF_VAR"] . '!';

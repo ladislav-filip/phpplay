@@ -1,0 +1,8 @@
+version: "3.2"
+services:
+        phpplay:
+                build:
+                    dockerfile: Dockerfile
+                    context: ./
+                ports:
+                    - 8073:80
