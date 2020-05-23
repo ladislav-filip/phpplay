@@ -35,10 +35,13 @@ document.getElementById("btTestError404").addEventListener("click", function() {
 });
 
 function loadToken() {
-    loadDoc("token", function(data) {
-        saml = data.SAML;
-        alert("FileSize = " + data.fileSize + "\r\nString size = " + (saml.length / 1024));
-    });    
+    let js = document.createElement("script");
+    js.src = "api.php?api=token";
+    document.body.appendChild(js);
+    // loadDoc("token", function(data) {
+    //     saml = data.SAML;
+    //     alert("FileSize = " + data.fileSize + "\r\nString size = " + (saml.length / 1024));
+    // });    
 }
 
 loadToken();
