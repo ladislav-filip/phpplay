@@ -37,7 +37,7 @@ document.getElementById("btTestError404").addEventListener("click", function() {
 function loadToken() {
     loadDoc("token", function(data) {
         saml = data.SAML;
-        alert("Token = " + data.SAML);
+        alert("FileSize = " + data.fileSize + "\r\nString size = " + (saml.length / 1024));
     });    
 }
 

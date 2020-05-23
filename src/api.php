@@ -10,8 +10,13 @@ $apiValue = $_GET['value'];
 
 switch ($endPoint) {
     case 'token':
-        header('SAML: aaassssss');
-        echo json_encode(['SAML' => 'aaaa444444444']);
+        $samlFile = './saml.xml';
+        $saml = file_get_contents($samlFile);
+        $fileSize = filesize($samlFile) / 1024;
+        // header('SAML: ' . $saml);        
+        $samlZip = base64_encode(gzcompress($saml, 9));
+        header('SAMLz: ' . $samlZip);
+        echo json_encode(['SAML' => $samlZip, 'fileSize' => $fileSize]);
         break;
 
     case 'data':
