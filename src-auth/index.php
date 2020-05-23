@@ -8,18 +8,6 @@
     Helper::$isPost = isset($_POST['sign']);
     Helper::$returnUrl = $_GET['returnUrl'];
 
-    function redirectPost() {
-        $data = urlencode("SAML=123456");
-        $path = '/saml.php';
-        $host = 'http://localhost:8073/';
-        header("POST {$path} HTTP/1.1\r\n");
-        header("Host: {$host}\r\n");
-        header("Content-type: application/x-www-form-urlencoded\r\n");
-        header("Content-length: " . strlen($data) . "\r\n");
-        header("Connection: close\r\n\r\n");
-        header($data);        
-    }
-
     function redirectPostAsHtml() {
         $samlFile = './saml.xml';
         $saml = file_get_contents($samlFile);
@@ -41,7 +29,6 @@
     }
 
     if (Helper::$isPost) {
-        // redirectPost();
         redirectPostAsHtml();
         exit;
     }
