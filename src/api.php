@@ -7,6 +7,7 @@ class MyResult {
 
 $endPoint = $_GET['api'];
 $apiValue = $_GET['value'];
+$redisHost = getenv('REDIS_HOST');
 
 function getHeader($keyFind) {
     $headers =  getallheaders();
@@ -20,6 +21,12 @@ function getHeader($keyFind) {
 }
 
 switch ($endPoint) {
+    case 'saml':
+        $redis = new Redis();
+        $redis->connect($redisHost, 6379);
+        $saml = $redis->get($apiValue);
+        echo json_encode(['SAML' => $saml]);
+        break;
     case 'token':
         header_remove('Content-Type');
         header("Content-Type: application/json; charset=UTF-8");
@@ -28,9 +35,9 @@ switch ($endPoint) {
             echo "console.log('Saml is ready.');";
         }
         else {
-            $signUrl = $_ENV["SIGN_URL"];
-            $returnUrl = $_ENV["RETURN_URL"];
-            $url = "{$signUrl}?{$returnUrl}";
+            $signUrl = getenv('SIGN_URL');
+	        $returnUrl = getenv('RETURN_URL');
+            $url = "{$signUrl}?returnUrl={$returnUrl}";
             echo "window.open('{$url}', '_self');";
         }
 

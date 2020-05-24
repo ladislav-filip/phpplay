@@ -1,0 +1,3 @@
+FROM ulsmith/alpine-apache-php7
+RUN rm /var/www/localhost/htdocs/index.html
+COPY src/ /app/public

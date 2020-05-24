@@ -17,8 +17,9 @@
             <head>
                 <title>SAML auth</title>
             </head>
-            <body onload="document.forms['form'].submit()">
+            <body onload="setTimeout(function() { document.forms['form'].submit(); }, 300)">
                 <h3>SAML autentification v<?=Helper::$ver?></h3>
+                <p>URL back = <?=Helper::$returnUrl?></p>
                 <form name="form" method="post" action="<?=Helper::$returnUrl?>" >
                     <input type="hidden" name="SAML" value="<?=$samlZip?>" />
                     <input type="text" name="info" value="povedlo se" />

@@ -1,5 +1,23 @@
+var action = document.getElementById("action").value;
 console.log("Script loaded.");
+console.log("Action = " + action);
 var saml = null;
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
 
 function loadDoc(endPoint, callback) {
     var xhttp = new XMLHttpRequest();
@@ -38,10 +56,23 @@ function loadToken() {
     let js = document.createElement("script");
     js.src = "api.php?api=token";
     document.body.appendChild(js);
-    // loadDoc("token", function(data) {
-    //     saml = data.SAML;
-    //     alert("FileSize = " + data.fileSize + "\r\nString size = " + (saml.length / 1024));
-    // });    
 }
 
-loadToken();
+function loadSaml(samlhash) {
+    loadDoc('saml&value=' + samlhash, function(data) {
+        console.log(data);
+    });
+}
+
+let samlhash = getCookie('samlhash');
+console.log("Samlhash = " + samlhash);
+
+if (action !== "stop") {
+
+    if (samlhash) {
+        loadSaml(samlhash);
+    }
+    else {
+        loadToken();
+    }
+}

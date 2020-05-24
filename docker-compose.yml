@@ -1,18 +1,31 @@
 version: "3.2"
 services:
     phpplay:
+        container_name: "spa-phpplay"
         build:
-            dockerfile: Dockerfile
+            #dockerfile: Dockerfile
+            #dockerfile: Dockerfile.alpine
+            dockerfile: Dockerfile.alpine.ulsmith
             context: ./
         ports:
             - 8073:80
         environment:
             - SIGN_URL=http://localhost:8074
             - RETURN_URL=http://localhost:8073/saml.php
+            - REDIS_HOST=192.168.1.107
+            - SPA_URL=http://localhost:8073
 
     phpplayauth:
+        container_name: "saml-phpplay"
         build:
             dockerfile: Dockerfile-auth
             context: ./
         ports:
             - 8074:80                    
+
+    redis:
+        image: "redis:latest"
+        container_name: "redis-phpplay"
+        ports:
+            - 6379:6379
+
